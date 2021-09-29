@@ -27,7 +27,10 @@ export class ArtistsService {
     };
 
     this.artists.push(artist);
-
     return artist;
+  }
+
+  delArtist(id: string): void {
+    this.artists = this.artists.filter((artist) => artist.id !== id);
   }
 }

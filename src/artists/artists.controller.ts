@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { Artist } from './artist.model';
 import { ArtistsService } from './artists.service';
 import { AddArtistDto } from './dto/add-artist.dto';
@@ -20,5 +20,10 @@ export class ArtistsController {
   @Post()
   addArtist(@Body() addArtistDto: AddArtistDto): Artist {
     return this.artistService.addArtist(addArtistDto);
+  }
+
+  @Delete('/:id')
+  delArtist(@Param('id') id: string): void {
+    this.artistService.delArtist(id);
   }
 }
