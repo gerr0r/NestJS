@@ -3,6 +3,7 @@ import { Artist } from './artist.model';
 
 import { v4 as generateID } from 'uuid';
 import { AddArtistDto } from './dto/add-artist.dto';
+import { FindArtistDto } from './dto/find-artist.dto';
 
 @Injectable()
 export class ArtistsService {
@@ -16,8 +17,8 @@ export class ArtistsService {
     return this.artists.find((artist) => artist.id === id);
   }
 
-  addArtist(addArtistDto: AddArtistDto): Artist {
-    const { name, origin, active = true } = addArtistDto;
+  addArtist(dto: AddArtistDto): Artist {
+    const { name, origin, active = true } = dto;
 
     const artist: Artist = {
       id: generateID(),
@@ -38,5 +39,16 @@ export class ArtistsService {
     const artist = this.getArtistById(id);
     artist.active = active;
     return artist;
+  }
+
+  findArtists(dto: FindArtistDto): Artist[] {
+    const { active, name, origin } = dto;
+    let artists = this.artists;
+
+    if (active) artists = artists.filter((artist) => artist.active === active);
+    if (name) artists = artists.filter((artist) => artist.name.includes(name));
+    if (origin)
+      artists = artists.filter((artist) => artist.origin.includes(origin));
+    return artists;
   }
 }
