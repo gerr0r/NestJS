@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Artist } from './artist.model';
 import { ArtistsService } from './artists.service';
 import { AddArtistDto } from './dto/add-artist.dto';
@@ -10,6 +10,11 @@ export class ArtistsController {
   @Get()
   getAllArtists(): Artist[] {
     return this.artistService.getAllArtists();
+  }
+
+  @Get('/:id')
+  getArtistById(@Param('id') id: string): Artist {
+    return this.artistService.getArtistById(id);
   }
 
   @Post()

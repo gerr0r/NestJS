@@ -12,6 +12,10 @@ export class ArtistsService {
     return this.artists;
   }
 
+  getArtistById(id: string): Artist {
+    return this.artists.find((artist) => artist.id === id);
+  }
+
   addArtist(addArtistDto: AddArtistDto): Artist {
     const { name, origin, active = true } = addArtistDto;
 
