@@ -33,4 +33,10 @@ export class ArtistsService {
   delArtist(id: string): void {
     this.artists = this.artists.filter((artist) => artist.id !== id);
   }
+
+  modArtistActiveState(id: string, active: boolean) {
+    const artist = this.getArtistById(id);
+    artist.active = active;
+    return artist;
+  }
 }
