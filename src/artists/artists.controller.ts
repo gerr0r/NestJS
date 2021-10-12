@@ -29,10 +29,10 @@ export class ArtistsController {
     return this.artistService.getArtistById(id);
   }
 
-  // @Post()
-  // addArtist(@Body() dto: AddArtistDto): Artist {
-  //   return this.artistService.addArtist(dto);
-  // }
+  @Post()
+  addArtist(@Body() dto: AddArtistDto): Promise<Artist> {
+    return this.artistService.addArtist(dto);
+  }
 
   // @Delete('/:id')
   // delArtist(@Param('id') id: string): void {

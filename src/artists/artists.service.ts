@@ -23,17 +23,18 @@ export class ArtistsService {
     return artist;
   }
 
-  // addArtist(dto: AddArtistDto): Artist {
-  //   const { name, origin, active = true } = dto;
-  //   const artist: Artist = {
-  //     id: generateID(),
-  //     name,
-  //     origin,
-  //     active
-  //   };
-  //   this.artists.push(artist);
-  //   return artist;
-  // }
+  async addArtist(dto: AddArtistDto): Promise<Artist> {
+    const { name, origin, active = true } = dto;
+    const artist = this.repository.create({
+      name,
+      origin,
+      active
+    });
+
+    await this.repository.save(artist);
+    return artist;
+  }
+
   // delArtist(id: string): void {
   //   const preLength = this.artists.length;
   //   this.artists = this.artists.filter((artist) => artist.id !== id);
