@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Artist } from './artist.model';
 
 import { v4 as generateID } from 'uuid';
@@ -14,7 +14,10 @@ export class ArtistsService {
   }
 
   getArtistById(id: string): Artist {
-    return this.artists.find((artist) => artist.id === id);
+    const artist = this.artists.find((artist) => artist.id === id);
+
+    if (!artist) throw new NotFoundException('Artist not found');
+    return artist;
   }
 
   addArtist(dto: AddArtistDto): Artist {
@@ -32,7 +35,10 @@ export class ArtistsService {
   }
 
   delArtist(id: string): void {
+    const preLength = this.artists.length;
     this.artists = this.artists.filter((artist) => artist.id !== id);
+    if (this.artists.length === preLength)
+      throw new NotFoundException('Artist not found. Delete fialed');
   }
 
   modArtistActiveState(id: string, active: boolean) {
