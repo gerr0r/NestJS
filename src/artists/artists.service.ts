@@ -23,16 +23,8 @@ export class ArtistsService {
     return artist;
   }
 
-  async addArtist(dto: AddArtistDto): Promise<Artist> {
-    const { name, origin, active = true } = dto;
-    const artist = this.repository.create({
-      name,
-      origin,
-      active
-    });
-
-    await this.repository.save(artist);
-    return artist;
+  addArtist(dto: AddArtistDto): Promise<Artist> {
+    return this.repository.addArtist(dto);
   }
 
   // delArtist(id: string): void {
