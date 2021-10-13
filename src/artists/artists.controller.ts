@@ -17,12 +17,12 @@ import { FindArtistDto } from './dto/find-artist.dto';
 export class ArtistsController {
   constructor(private artistService: ArtistsService) {}
 
-  // @Get()
-  // findArtists(@Query() dto: FindArtistDto): Artist[] {
-  //   if (Object.keys(dto).length === 0)
-  //     return this.artistService.getAllArtists();
-  //   return this.artistService.findArtists(dto);
-  // }
+  @Get()
+  findArtists(@Query() dto: FindArtistDto): Promise<Artist[]> {
+    if (Object.keys(dto).length === 0)
+      return this.artistService.getAllArtists();
+    return this.artistService.findArtists(dto);
+  }
 
   @Get('/:id')
   getArtistById(@Param('id') id: string): Promise<Artist> {

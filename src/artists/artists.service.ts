@@ -13,9 +13,10 @@ export class ArtistsService {
     private repository: ArtistsRepository
   ) {}
 
-  // getAllArtists(): Artist[] {
-  //   return this.artists;
-  // }
+  async getAllArtists(): Promise<Artist[]> {
+    const artists = await this.repository.find();
+    return artists;
+  }
 
   async getArtistById(id: string): Promise<Artist> {
     const artist = await this.repository.findOne(id);
@@ -41,13 +42,7 @@ export class ArtistsService {
     return artist;
   }
 
-  // findArtists(dto: FindArtistDto): Artist[] {
-  //   const { active, name, origin } = dto;
-  //   let artists = this.artists;
-  //   if (active) artists = artists.filter((artist) => artist.active === active);
-  //   if (name) artists = artists.filter((artist) => artist.name.includes(name));
-  //   if (origin)
-  //     artists = artists.filter((artist) => artist.origin.includes(origin));
-  //   return artists;
-  // }
+  findArtists(dto: FindArtistDto): Promise<Artist[]> {
+    return this.repository.findArtist(dto);
+  }
 }
