@@ -27,12 +27,12 @@ export class ArtistsService {
     return this.repository.addArtist(dto);
   }
 
-  // delArtist(id: string): void {
-  //   const preLength = this.artists.length;
-  //   this.artists = this.artists.filter((artist) => artist.id !== id);
-  //   if (this.artists.length === preLength)
-  //     throw new NotFoundException('Artist not found. Delete fialed');
-  // }
+  async delArtist(id: string): Promise<void> {
+    const { affected } = await this.repository.delete(id);
+    if (affected === 0)
+      throw new NotFoundException('Artist not found. Delete fialed');
+  }
+
   // modArtistActiveState(id: string, active: boolean) {
   //   const artist = this.getArtistById(id);
   //   artist.active = active;

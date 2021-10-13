@@ -34,10 +34,10 @@ export class ArtistsController {
     return this.artistService.addArtist(dto);
   }
 
-  // @Delete('/:id')
-  // delArtist(@Param('id') id: string): void {
-  //   this.artistService.delArtist(id);
-  // }
+  @Delete('/:id')
+  delArtist(@Param('id') id: string): Promise<void> {
+    return this.artistService.delArtist(id);
+  }
 
   // @Patch('/:id/active')
   // modArtistActiveState(
