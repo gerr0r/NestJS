@@ -33,11 +33,14 @@ export class ArtistsService {
       throw new NotFoundException('Artist not found. Delete fialed');
   }
 
-  // modArtistActiveState(id: string, active: boolean) {
-  //   const artist = this.getArtistById(id);
-  //   artist.active = active;
-  //   return artist;
-  // }
+  async modArtistActiveState(id: string, active: boolean): Promise<Artist> {
+    const artist = await this.getArtistById(id);
+    artist.active = active;
+
+    await this.repository.save(artist);
+    return artist;
+  }
+
   // findArtists(dto: FindArtistDto): Artist[] {
   //   const { active, name, origin } = dto;
   //   let artists = this.artists;

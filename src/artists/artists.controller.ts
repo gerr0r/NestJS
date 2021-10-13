@@ -39,11 +39,11 @@ export class ArtistsController {
     return this.artistService.delArtist(id);
   }
 
-  // @Patch('/:id/active')
-  // modArtistActiveState(
-  //   @Param('id') id: string,
-  //   @Body('active') active: boolean
-  // ): Artist {
-  //   return this.artistService.modArtistActiveState(id, active);
-  // }
+  @Patch('/:id/active')
+  modArtistActiveState(
+    @Param('id') id: string,
+    @Body('active') active: boolean
+  ): Promise<Artist> {
+    return this.artistService.modArtistActiveState(id, active);
+  }
 }
