@@ -15,28 +15,27 @@ import { FindArtistDto } from './dto/find-artist.dto';
 
 @Controller('artists')
 export class ArtistsController {
-  constructor(private artistService: ArtistsService) {}
+  constructor(private service: ArtistsService) {}
 
   @Get()
   findArtists(@Query() dto: FindArtistDto): Promise<Artist[]> {
-    if (Object.keys(dto).length === 0)
-      return this.artistService.getAllArtists();
-    return this.artistService.findArtists(dto);
+    if (Object.keys(dto).length === 0) return this.service.getAllArtists();
+    return this.service.findArtists(dto);
   }
 
   @Get('/:id')
   getArtistById(@Param('id') id: string): Promise<Artist> {
-    return this.artistService.getArtistById(id);
+    return this.service.getArtistById(id);
   }
 
   @Post()
   addArtist(@Body() dto: AddArtistDto): Promise<Artist> {
-    return this.artistService.addArtist(dto);
+    return this.service.addArtist(dto);
   }
 
   @Delete('/:id')
   delArtist(@Param('id') id: string): Promise<void> {
-    return this.artistService.delArtist(id);
+    return this.service.delArtist(id);
   }
 
   @Patch('/:id/active')
@@ -44,6 +43,6 @@ export class ArtistsController {
     @Param('id') id: string,
     @Body('active') active: boolean
   ): Promise<Artist> {
-    return this.artistService.modArtistActiveState(id, active);
+    return this.service.modArtistActiveState(id, active);
   }
 }
