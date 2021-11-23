@@ -13,4 +13,8 @@ export class AuthService {
   async register(dto: AuthUserDto): Promise<void> {
     return this.repository.createUser(dto);
   }
+
+  async login(dto: AuthUserDto): Promise<string> {
+    return this.repository.loginUser(dto);
+  }
 }
