@@ -6,14 +6,17 @@ import {
   Param,
   Patch,
   Post,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { Artist } from './artist.entity';
 import { ArtistsService } from './artists.service';
 import { AddArtistDto } from './dto/add-artist.dto';
 import { FindArtistDto } from './dto/find-artist.dto';
 
 @Controller('artists')
+@UseGuards(AuthGuard())
 export class ArtistsController {
   constructor(private service: ArtistsService) {}
 
