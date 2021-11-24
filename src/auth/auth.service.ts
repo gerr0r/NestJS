@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   async login(dto: AuthUserDto): Promise<{ token: string }> {
-    const username = this.repository.loginUser(dto);
+    const username = await this.repository.loginUser(dto);
     const token = await this.jwtService.sign({ username });
     return { token };
   }

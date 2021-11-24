@@ -7,9 +7,7 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ArtistsModule,
-    ConfigModule.forRoot({
-      isGlobal: true
-    }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
