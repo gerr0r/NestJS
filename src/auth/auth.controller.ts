@@ -12,7 +12,7 @@ export class AuthController {
   }
 
   @Post('/login')
-  login(@Body() dto: AuthUserDto): Promise<string> {
+  login(@Body() dto: AuthUserDto): Promise<{ token: string }> {
     return this.service.login(dto);
   }
 }

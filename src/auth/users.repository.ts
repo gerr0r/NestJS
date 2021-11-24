@@ -35,7 +35,7 @@ export class UsersRepository extends Repository<User> {
     const hash = await bc.compare(password, user?.password || '');
 
     if (user && hash) {
-      return 'success';
+      return username;
     } else {
       throw new UnauthorizedException('Wrong username or password');
     }
