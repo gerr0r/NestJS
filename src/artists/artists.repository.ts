@@ -20,10 +20,11 @@ export class ArtistsRepository extends Repository<Artist> {
     return artist;
   }
 
-  async findArtist(dto: FindArtistDto): Promise<Artist[]> {
+  async findArtist(dto: FindArtistDto, user: User): Promise<Artist[]> {
     const { active, name, origin } = dto;
 
     const query = this.createQueryBuilder('artist');
+    query.where({ user });
 
     if (active) query.andWhere('artist.active = :active', { active });
     if (name) query.andWhere('artist.name iLIKE :name', { name: `%${name}%` });

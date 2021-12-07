@@ -23,14 +23,20 @@ export class ArtistsController {
   constructor(private service: ArtistsService) {}
 
   @Get()
-  findArtists(@Query() dto: FindArtistDto): Promise<Artist[]> {
-    if (Object.keys(dto).length === 0) return this.service.getAllArtists();
-    return this.service.findArtists(dto);
+  findArtists(
+    @Query() dto: FindArtistDto,
+    @GetUser() user: User
+  ): Promise<Artist[]> {
+    if (Object.keys(dto).length === 0) return this.service.getAllArtists(user);
+    return this.service.findArtists(dto, user);
   }
 
   @Get('/:id')
-  getArtistById(@Param('id') id: string): Promise<Artist> {
-    return this.service.getArtistById(id);
+  getArtistById(
+    @Param('id') id: string,
+    @GetUser() user: User
+  ): Promise<Artist> {
+    return this.service.getArtistById(id, user);
   }
 
   @Post()
@@ -39,15 +45,16 @@ export class ArtistsController {
   }
 
   @Delete('/:id')
-  delArtist(@Param('id') id: string): Promise<void> {
-    return this.service.delArtist(id);
+  delArtist(@Param('id') id: string, @GetUser() user: User): Promise<void> {
+    return this.service.delArtist(id, user);
   }
 
   @Patch('/:id/active')
   modArtistActiveState(
     @Param('id') id: string,
-    @Body('active') active: boolean
+    @Body('active') active: boolean,
+    @GetUser() user: User
   ): Promise<Artist> {
-    return this.service.modArtistActiveState(id, active);
+    return this.service.modArtistActiveState(id, active, user);
   }
 }

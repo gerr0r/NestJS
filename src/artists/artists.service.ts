@@ -14,13 +14,13 @@ export class ArtistsService {
     private repository: ArtistsRepository
   ) {}
 
-  async getAllArtists(): Promise<Artist[]> {
-    const artists = await this.repository.find();
+  async getAllArtists(user: User): Promise<Artist[]> {
+    const artists = await this.repository.find({ where: { user } });
     return artists;
   }
 
-  async getArtistById(id: string): Promise<Artist> {
-    const artist = await this.repository.findOne(id);
+  async getArtistById(id: string, user: User): Promise<Artist> {
+    const artist = await this.repository.findOne({ where: { id, user } });
     if (!artist) throw new NotFoundException('Artist not found');
     return artist;
   }
@@ -29,21 +29,25 @@ export class ArtistsService {
     return this.repository.addArtist(dto, user);
   }
 
-  async delArtist(id: string): Promise<void> {
-    const { affected } = await this.repository.delete(id);
+  async delArtist(id: string, user: User): Promise<void> {
+    const { affected } = await this.repository.delete({ id, user });
     if (affected === 0)
       throw new NotFoundException('Artist not found. Delete fialed');
   }
 
-  async modArtistActiveState(id: string, active: boolean): Promise<Artist> {
-    const artist = await this.getArtistById(id);
+  async modArtistActiveState(
+    id: string,
+    active: boolean,
+    user: User
+  ): Promise<Artist> {
+    const artist = await this.getArtistById(id, user);
     artist.active = active;
 
     await this.repository.save(artist);
     return artist;
   }
 
-  findArtists(dto: FindArtistDto): Promise<Artist[]> {
-    return this.repository.findArtist(dto);
+  findArtists(dto: FindArtistDto, user: User): Promise<Artist[]> {
+    return this.repository.findArtist(dto, user);
   }
 }
