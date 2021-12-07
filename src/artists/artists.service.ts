@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/auth/user.entity';
 
 import { Artist } from './artist.entity';
 import { ArtistsRepository } from './artists.repository';
@@ -24,8 +25,8 @@ export class ArtistsService {
     return artist;
   }
 
-  addArtist(dto: AddArtistDto): Promise<Artist> {
-    return this.repository.addArtist(dto);
+  addArtist(dto: AddArtistDto, user: User): Promise<Artist> {
+    return this.repository.addArtist(dto, user);
   }
 
   async delArtist(id: string): Promise<void> {

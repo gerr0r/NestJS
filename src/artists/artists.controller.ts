@@ -10,6 +10,8 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 import { Artist } from './artist.entity';
 import { ArtistsService } from './artists.service';
 import { AddArtistDto } from './dto/add-artist.dto';
@@ -32,8 +34,8 @@ export class ArtistsController {
   }
 
   @Post()
-  addArtist(@Body() dto: AddArtistDto): Promise<Artist> {
-    return this.service.addArtist(dto);
+  addArtist(@Body() dto: AddArtistDto, @GetUser() user: User): Promise<Artist> {
+    return this.service.addArtist(dto, user);
   }
 
   @Delete('/:id')
