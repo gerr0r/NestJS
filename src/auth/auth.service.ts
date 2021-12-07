@@ -17,8 +17,12 @@ export class AuthService {
   }
 
   async login(dto: AuthUserDto): Promise<{ token: string }> {
-    const username = await this.repository.loginUser(dto);
-    const token = await this.jwtService.sign({ username });
-    return { token };
+    try {
+      const username = await this.repository.loginUser(dto);
+      const token = await this.jwtService.sign({ username });
+      return { token };
+    } catch (error) {
+      throw error;
+    }
   }
 }
