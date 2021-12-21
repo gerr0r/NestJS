@@ -3,11 +3,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ArtistsModule } from './artists/artists.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { configValidationSchema } from './config.schema';
 
 @Module({
   imports: [
     ArtistsModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      validationSchema: configValidationSchema
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
